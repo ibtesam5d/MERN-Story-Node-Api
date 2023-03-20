@@ -3,13 +3,22 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const createError = require("../utils/createError.js");
 
-// register user
+// @desc   Register User
+// @route  POST /api/auth/register
+// @access public
 const register = async (req, res, next) => {
   try {
     const hash = bcrypt.hashSync(req.body.password, 5);
-    const newUser = new User({ ...req.body, password: hash });
-    await newUser.save();
-    res.status(201).send("new user created");
+    const newUser = await User.create({ ...req.body, password: hash });
+
+    if (newUser) {
+      res.status(201).json({
+        _id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        token: generateToken(newUser.id, newUser.isAuthor),
+      });
+    }
   } catch (error) {
     next(error);
   }
@@ -31,23 +40,11 @@ const login = async (req, res, next) => {
       return next(createError(400, "incorrect username or password"));
 
     // send user info
-    const token = jwt.sign(
-      {
-        id: user._id,
-        isAuthor: user.isAuthor,
-      },
-      process.env.JWT_SECRET_KEY
-    );
     const { password, ...userInfo } = user._doc;
-    res
-      // .cookie("accessToken", token, {
-      //   httpOnly: true,
-      //   secure: false,
-      //   sameSite: "lax",
-      //   // maxAge: 7 * 24 * 60 * 60 * 1000,
-      // })
-      .status(200)
-      .send(userInfo);
+    res.status(200).json({
+      userInfo,
+      token: generateToken(userInfo._id, userInfo.isAuthor),
+    });
   } catch (error) {
     next(error);
   }
@@ -62,6 +59,19 @@ const logout = async (req, res) => {
     // })
     .status(200)
     .send("user logged-out successfully");
+};
+
+const generateToken = (id, isAuthor) => {
+  return jwt.sign(
+    {
+      id,
+      isAuthor,
+    },
+    process.env.JWT_SECRET_KEY,
+    {
+      expiresIn: "30d",
+    }
+  );
 };
 
 module.exports = {
