@@ -10,7 +10,7 @@ const deleteUser = async (req, res, next) => {
   // matching logged-in user with account owner
   if (req.userId !== user._id.toString())
     return next(
-      createError(403, "you do not have permission to delete this account")
+      createError(403, "only account owner can delete their account")
     );
   await User.findByIdAndDelete(req.params.id);
   res.status(200).send("account deleted");
