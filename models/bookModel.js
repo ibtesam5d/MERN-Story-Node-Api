@@ -21,11 +21,11 @@ const bookSchema = new Schema(
     },
     totalStars: {
       type: Number,
-      required: true,
+      default: 0,
     },
     starNumber: {
       type: Number,
-      required: true,
+      default: 0,
     },
     category: {
       type: String,

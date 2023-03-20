@@ -26,7 +26,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 // for cookie-parser
 app.use(cookieParser());
-//CORS
 
 // database connection
 const dbConnect = async () => {

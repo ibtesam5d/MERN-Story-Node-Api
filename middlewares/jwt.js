@@ -25,7 +25,7 @@ const verifyToken = (req, res, next) => {
       console.log(error);
     }
   }
-  if (!token) return next(createError(401, "you are not authrized"));
+  if (!token) return next(createError(401, "please log-in first"));
 };
 
 module.exports = verifyToken;
