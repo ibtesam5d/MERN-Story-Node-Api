@@ -16,6 +16,16 @@ const deleteUser = async (req, res, next) => {
   res.status(200).send("account deleted");
 };
 
+const getUser = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).send(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   deleteUser,
+  getUser,
 };

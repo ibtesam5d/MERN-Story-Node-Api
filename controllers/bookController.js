@@ -19,7 +19,7 @@ const getAllBooks = async (req, res, next) => {
 
   try {
     // getting all books
-    const books = await Book.find(filters);
+    const books = await Book.find(filters).sort({ [q.sort]: -1 });
     // check if books exist
     if (!books) return next(createError(404, "you have no books"));
     res.status(200).json(books);

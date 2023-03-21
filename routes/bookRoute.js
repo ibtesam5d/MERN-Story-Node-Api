@@ -11,7 +11,7 @@ const verifyToken = require("../middlewares/jwt");
 // @desc  GET all books
 // @route /api/books
 // @access private
-router.get("/", verifyToken, getAllBooks);
+router.get("/", getAllBooks);
 
 // @desc   POST a new book
 // @route  /api/books
@@ -21,7 +21,7 @@ router.post("/", verifyToken, createBook);
 // @desc  GET a single book
 // @route /api/books
 // @access private
-router.get("/single/:id", verifyToken, getBook);
+router.get("/single/:id", getBook);
 
 // @desc   DELETE a book
 // @route  /api/books
