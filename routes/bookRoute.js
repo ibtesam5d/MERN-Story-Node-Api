@@ -16,7 +16,7 @@ router.get("/", getAllBooks);
 // @desc   POST a new book
 // @route  /api/books
 // @access private
-router.post("/", verifyToken, createBook);
+router.post("/", createBook);
 
 // @desc  GET a single book
 // @route /api/books
