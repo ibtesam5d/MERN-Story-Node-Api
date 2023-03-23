@@ -19,7 +19,8 @@ const deleteUser = async (req, res, next) => {
 const getUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id);
-    res.status(200).send(user);
+    const { password, ...userInfo } = user._doc;
+    res.status(200).send(userInfo);
   } catch (error) {
     next(error);
   }
