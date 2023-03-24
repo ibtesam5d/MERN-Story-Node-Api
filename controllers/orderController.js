@@ -22,7 +22,7 @@ const intent = async (req, res, next) => {
 
   const newOrder = new Order({
     bookId: book._id,
-    img: book.cover,
+    image: book.cover,
     title: book.title,
     buyerId: req.userId,
     authorId: book.userId,
