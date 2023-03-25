@@ -50,6 +50,18 @@ const getOrders = async (req, res, next) => {
   }
 };
 
+const getSingleOrder = async (req, res, next) => {
+  try {
+    const orders = await Order.find({
+      ...{ bookId: req.params.id },
+    });
+
+    res.status(200).send(orders);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const confirm = async (req, res, next) => {
   try {
     const orders = await Order.findOneAndUpdate(
@@ -73,4 +85,5 @@ module.exports = {
   intent,
   getOrders,
   confirm,
+  getSingleOrder,
 };

@@ -4,6 +4,7 @@ const {
   getOrders,
   intent,
   confirm,
+  getSingleOrder,
 } = require("../controllers/orderController");
 const verifyToken = require("../middlewares/jwt.js");
 
@@ -11,6 +12,7 @@ const verifyToken = require("../middlewares/jwt.js");
 // @route  /api/orders
 // @access private
 router.get("/", verifyToken, getOrders);
+router.get("/:id", verifyToken, getSingleOrder);
 
 // @desc   POST payment intent
 // @route  /api/orders
