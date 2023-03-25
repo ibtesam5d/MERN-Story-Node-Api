@@ -1,6 +1,7 @@
 const whiteList = [
   "https://mdibtesamhossain.com",
   "https://mdibtesamhossain.com/story",
+  "https://story-fe.onrender.com",
 ];
 const corsOptions = {
   origin: (origin, callback) => {
